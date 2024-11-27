@@ -12,7 +12,7 @@ public class Artist implements Catalogueable{
 
     // GETTERS AND SETTERS
     
-    public String getArtistName() {
+    public String getArtistName () {
         return artistName;
     }
 
@@ -31,12 +31,12 @@ public class Artist implements Catalogueable{
     }
     
     @Override
-    public void addToLibrary() {
+    public void addToLibrary () {
         
     }
     
     @Override
-    public void removeFromLibrary() {
+    public void removeFromLibrary () {
         
     }
 }

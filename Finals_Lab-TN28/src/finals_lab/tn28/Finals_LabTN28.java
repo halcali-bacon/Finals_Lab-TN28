@@ -12,6 +12,7 @@ public class Finals_LabTN28 {
             System.out.println("[1] - Catalogue");
             System.out.println("[2] - My Library");
             System.out.println("[3] - Exit");
+            System.out.print("\nEnter Option: ");
             main_opt = Integer.parseInt(reader.nextLine());
             switch (main_opt) {
                 case 1:
@@ -63,20 +64,7 @@ public class Finals_LabTN28 {
         }
         
         // CATALOGUE FUNCTIONS
-        // [1] - Catalogue
-            // [1] - View catalogue
-                // [1] - View artist catalogue
-                // [2] - View album catalogue
-                // [3] - Back
-            // [2] - Add to catalogue
-                // [1] - Add new artist to catalogue
-                // [2] - Add new album to catalogue
-                // [3] - Back
-            // [3] - Remove from catalogue
-                // [1] - Remove an artist (and all associated albums)
-                // [2] - Remove an album
-                // [3] - Back
-                        // [4] - Back
+        
         public void catalogueLoop() {
             int opt;
             
@@ -85,6 +73,7 @@ public class Finals_LabTN28 {
                 System.out.println("[2] - Add to Catalogue");
                 System.out.println("[3] - Remove from Catalogue");
                 System.out.println("[4] - Back");
+                System.out.print("\nEnter Option: ");
                 opt = Integer.parseInt(reader.nextLine());
                 
                 switch (opt) {
@@ -115,6 +104,7 @@ public class Finals_LabTN28 {
                 System.out.println("[1] - View artist catalogue");
                 System.out.println("[2] - View album catalogue");
                 System.out.println("[3] - Back");
+                System.out.print("\nEnter Option: ");
                 opt = Integer.parseInt(reader.nextLine());
                 
                 switch (opt) {
@@ -148,6 +138,7 @@ public class Finals_LabTN28 {
                 System.out.println("[1] - Add new artist to catalogue");
                 System.out.println("[2] - Add new album to catalogue");
                 System.out.println("[3] - Back");
+                System.out.print("\nEnter Option: ");
                 opt = Integer.parseInt(reader.nextLine());
                 
                 switch (opt) {
@@ -181,6 +172,7 @@ public class Finals_LabTN28 {
                 System.out.println("[1] - Remove an artist (and all associated albums)");
                 System.out.println("[2] - Remove an album");
                 System.out.println("[3] - Back");
+                System.out.print("\nEnter Option: ");
                 opt = Integer.parseInt(reader.nextLine());
                 
                 switch (opt) {
@@ -208,18 +200,7 @@ public class Finals_LabTN28 {
         }
         
         // LIBRARY FUCNTIONS
-        // [2] - My Library
-            // [1] - Artists
-                // [1] - View my artist list
-                // [2] - Add new artist
-                // [3] - Remove artist from library
-                // [4] - Back
-            // [2] - Albums
-                // [1] - View my album list
-                // [2] - Add new album
-                // [3] - Remove album from library
-                // [4] - Back
-            // [3] - Back
+       
         public void libraryLoop() {
             int opt;
             
@@ -227,6 +208,7 @@ public class Finals_LabTN28 {
                 System.out.println("[1] - Artists");
                 System.out.println("[2] - Albums");
                 System.out.println("[3] - Back");
+                System.out.print("\nEnter Option: ");
                 opt = Integer.parseInt(reader.nextLine());
                 switch (opt) {
                     case 1:
@@ -243,7 +225,7 @@ public class Finals_LabTN28 {
                     default:
                         throw new AssertionError();
                 }
-            } while (opt != 4);
+            } while (opt != 3);
         }
         
         public void artistLoop_L() {
@@ -254,6 +236,7 @@ public class Finals_LabTN28 {
                 System.out.println("[2] - Add Artist to My List");
                 System.out.println("[3] - Remove Artist from My List");
                 System.out.println("[4] - Back");
+                System.out.print("\nEnter Option: ");
                 opt = Integer.parseInt(reader.nextLine());
                 
                 switch (opt) {
@@ -295,6 +278,7 @@ public class Finals_LabTN28 {
                 System.out.println("[2] - Add Artist to My List");
                 System.out.println("[3] - Remove Artist from My List");
                 System.out.println("[4] - Back");
+                System.out.print("\nEnter Option: ");
                 opt = Integer.parseInt(reader.nextLine());
                 
                 switch (opt) {
