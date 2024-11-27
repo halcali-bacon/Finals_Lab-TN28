@@ -1,13 +1,13 @@
 package finals_lab.tn28;
 import java.util.*;
 
-public class Artist implements Catalogueable{
+public class Artist {
     private String artistName;
-    private final Queue<Album> discography;
+    private final List<Album> discography;
     
     Artist (String artistName) {
         this.artistName = artistName;
-        discography = new PriorityQueue<>();
+        discography = new ArrayList<>();
     }
 
     // GETTERS AND SETTERS
@@ -21,22 +21,11 @@ public class Artist implements Catalogueable{
     }
     
     // CUSTOM METHODS
-    
+
     @Override
-    public void displayList () {
-        Queue<Album> temp = this.discography;
-        while (temp.peek() != null) {
-            System.out.println(temp.poll());
-        }
+    public String toString() {
+//        return "Artist{" + "artistName=" + artistName + ", discography=" + discography + '}';
+        return (artistName + " (" + discography.size() + " Albums)");
     }
     
-    @Override
-    public void addToLibrary () {
-        
-    }
-    
-    @Override
-    public void removeFromLibrary () {
-        
-    }
 }

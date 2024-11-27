@@ -1,7 +1,17 @@
 package finals_lab.tn28;
 
 public interface Catalogueable {
-    void displayList();
-    void addToLibrary();
-    void removeFromLibrary();
+    void isArtistOnList();
+    
+    //For Artists
+    void addArtist();
+    void removeArtist();
+    void displayArtists();
+    
+    // For Albums
+    void addAlbum();
+    void removeAlbum();
+    void displayAlbums();
+    
+    
 }

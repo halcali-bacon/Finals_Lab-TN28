@@ -22,9 +22,7 @@ public class Finals_LabTN28 {
                     mcs.libraryLoop();
                     break;
                 case 3:
-                    // [3] - Exit
-                    // Run code to print the catalogue to a text file
-                    // Run code to print the user's library to a text file
+                    mcs.mcsClose();
                     break;
                 default:
                     System.out.println("Invalid input.");
@@ -36,31 +34,30 @@ public class Finals_LabTN28 {
     private static class MusicCatalogueSystem {
         Scanner reader;
         
-        // These lists are for the catalogue
-        Queue<Album> albumCatalogue;
-        Queue<Artist> artistCatalogue;
-
-        // These lists are for the user library
-        Queue<Album> myAlbums;
-        Queue<Artist> myArtists;
-        String username;
+        Catalogue myCatalogue = new Catalogue(reader);
+        Library myLibrary = new Library();
 
         MusicCatalogueSystem(Scanner reader) {
             this.reader = reader;
-            // Initializes the list for the catalogue
-            albumCatalogue = new PriorityQueue<>();
-            artistCatalogue = new PriorityQueue<>();
-            
-            // Initializes the lists for the user library
-            myAlbums = new PriorityQueue<>();
-            myArtists = new PriorityQueue<>();
-            
             mcsSetup();
         }
         
         public final void mcsSetup () {
-            // read catalogue txt file
+            // Catalogue Setup
+                // Read from ArtistCatalogue.txt
+                // Read from AlbumCatalogue.txt
             // read library txt file
+                // Read from ArtistLibrary.txt
+                // Read from ArtistLibrary.txt
+        }
+        
+        public final void mcsClose() {
+            // Save the changes into the Catalogue
+                // Write to ArtistCatalogue.txt
+                // Write to AlbumCatalogue.txt
+            // Save the changes into the Library
+                // Write to ArtistLibrary.txt
+                // Write to AlbumLibrary.txt
         }
         
         // CATALOGUE FUNCTIONS
@@ -123,14 +120,6 @@ public class Finals_LabTN28 {
             } while (opt != 3);
         }
         
-        public void viewArtist_C () {
-            System.out.println("In viewArtist_C()");
-        }
-        
-        public void viewAlbum_C () {
-            System.out.println("In viewAlbum_C()");
-        }
-        
         public void addLoop_C() {
             int opt;
             
@@ -157,14 +146,6 @@ public class Finals_LabTN28 {
             } while (opt != 3);
         }
         
-        public void addArtist_C () {
-            System.out.println("In addArtist_C()");
-        }
-
-        public void addAlbum_C () {
-            System.out.println("In addAlbum_C()");
-        }
-        
         public void removeLoop_C() {
             int opt;
             
@@ -189,14 +170,6 @@ public class Finals_LabTN28 {
                         throw new AssertionError();
                 }
             } while (opt != 3);
-        }
-        
-        public void removeArtist_C () {
-            System.out.println("In removeArtist_C()");
-        }
-        
-        public void removeAlbum_C () {
-            System.out.println("In removeAlbum_C()");
         }
         
         // LIBRARY FUCNTIONS
@@ -258,18 +231,6 @@ public class Finals_LabTN28 {
             } while (opt != 4);
         }
         
-        public void viewArtist_L () {
-            System.out.println("In viewArtist_L()");
-        }
-        
-        public void addArtist_L () {
-            System.out.println("In addArtist_L()");
-        }
-        
-        public void removeArtist_L () {
-            System.out.println("In removeArtist_L()");
-        }
-        
         public void albumLoop_L() {
             int opt;
             
@@ -298,18 +259,6 @@ public class Finals_LabTN28 {
                         throw new AssertionError();
                 }
             } while (opt != 4);
-        }
-        
-        public void viewAlbum_L () {
-            System.out.println("In viewAlbum_L()");
-        }
-        
-        public void addAlbum_L () {
-            System.out.println("In addAlbum_L()");
-        }
-        
-        public void removeAlbum_L () {
-            System.out.println("In removeAlbum_L()");
         }
     }
 }

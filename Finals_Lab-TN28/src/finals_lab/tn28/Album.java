@@ -2,7 +2,7 @@ package finals_lab.tn28;
 
 import java.util.*;
 
-public class Album implements Catalogueable {
+public class Album {
     private String albumTitle;
     private int year;
     private final Queue<String> tracklist;
@@ -33,22 +33,11 @@ public class Album implements Catalogueable {
     }
     
     // CUSTOM METHODS
-    
+
     @Override
-    public void displayList() {
-        Queue<String> temp = this.tracklist;
-        while (temp.peek() != null) {
-            System.out.println(temp.poll() + "\n");
-        }
+    public String toString() {
+//        return "Album{" + "albumTitle=" + albumTitle + ", year=" + year + '}';
+        return (albumTitle + " (" + year + ")");
     }
     
-    @Override
-    public void addToLibrary() {
-        
-    }
-    
-    @Override
-    public void removeFromLibrary() {
-        
-    }
 }
