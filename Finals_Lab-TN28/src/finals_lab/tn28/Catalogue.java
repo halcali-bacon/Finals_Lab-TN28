@@ -147,6 +147,7 @@ public class Catalogue implements Catalogueable {
         }
         // Add Album
         found.addAlbum(new Album(album, year));
+        System.out.println("Album successfully added.");
         
     }
     
