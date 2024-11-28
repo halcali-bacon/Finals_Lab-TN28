@@ -1,317 +1,297 @@
 package finals_lab.tn28;
 
 import java.util.*;
+import java.io.*;
 
 public class Finals_LabTN28 {
     public static void main(String[] args) {
-        Scanner reader = new Scanner(System.in);
+        Scanner reader = new Scanner(System.in);    
         MusicCatalogueSystem mcs = new MusicCatalogueSystem(reader);
         
         int main_opt;
+        
         do {
-            System.out.println("[1] - Catalogue");
-            System.out.println("[2] - My Library");
-            System.out.println("[3] - Exit");
-            System.out.print("\nEnter Option: ");
+            System.out.println("---------MENU------------------");
+            System.out.println("[1] View Catalogue");
+            System.out.println("[2] Add to Catalogue");
+            System.out.println("[3] Remove from Catalogue");
+            System.out.println("[4] Exit System");
+            System.out.println("\nEnter option: ");
             main_opt = Integer.parseInt(reader.nextLine());
+            
             switch (main_opt) {
                 case 1:
-                    mcs.catalogueLoop();
+                {
+                    int opt;
+                    do {
+                        System.out.println("---------VIEW------------------");
+                        System.out.println("[1] View Artists");
+                        System.out.println("[2] View Albums");
+                        System.out.println("[3] Back");
+                        System.out.println("\nEnter option: ");
+                        opt =Integer.parseInt(reader.nextLine());
+                        
+                        switch (opt) {
+                            case 1:
+                                System.out.println("Artists in Catalogue:");
+                                mcs.displayArtists();
+                                break;
+                            case 2:
+                                System.out.println("Albums in Catalogue:");
+                                mcs.displayAlbums();
+                                break;
+                            case 3:
+                                System.out.println("Returning to main menu...");
+                                break;
+                            default:
+                                System.out.println("Invalid option.");
+                        }
+                    } while (opt != 3);
+                }
                     break;
                 case 2:
-                    mcs.libraryLoop();
+                {
+                    int opt;
+                    do {
+                        System.out.println("---------ADD-------------------");
+                        System.out.println("[1] Add Artist");
+                        System.out.println("[2] Add Album");
+                        System.out.println("[3] Back");
+                        System.out.println("\nEnter option: ");
+                        opt =Integer.parseInt(reader.nextLine());
+                        
+                        switch (opt) {
+                            case 1:
+                            {
+                                System.out.print("Enter artist name: ");
+                                String name = reader.nextLine();
+                                mcs.addArtist(name);
+                            }
+                                break;
+                            case 2:
+                            {
+                                System.out.print("Enter artist name: ");
+                                String name = reader.nextLine();
+                                System.out.print("Enter album title: ");
+                                String title = reader.nextLine();
+                                System.out.print("Enter album year: ");
+                                int year = Integer.parseInt(reader.nextLine());
+                                mcs.addAlbum(name, title, year);
+                            }
+                                break;
+                            case 3:
+                                System.out.println("Returning to main menu...");
+                                break;
+                            default:
+                                System.out.println("Invalid option.");
+                        }
+                    } while (opt != 3);
+                }
                     break;
                 case 3:
-                    // [3] - Exit
-                    // Run code to print the catalogue to a text file
-                    // Run code to print the user's library to a text file
+                {
+                    int opt;
+                    do {
+                        System.out.println("---------REMOVE----------------");
+                        System.out.println("[1] Remove Artist");
+                        System.out.println("[2] Remove Album");
+                        System.out.println("[3] Back");
+                        System.out.println("\nEnter option: ");
+                        opt =Integer.parseInt(reader.nextLine());
+                        
+                        switch (opt) {
+                            case 1:
+                            {
+                                System.out.print("Enter artist name: ");
+                                String name = reader.nextLine();
+                                mcs.removeArtist(name);
+                            }
+                                break;
+                            case 2:
+                            {
+                                System.out.println("Enter artist name: ");
+                                String name = reader.nextLine();
+                                System.out.println("Enter album title: ");
+                                String title = reader.nextLine();
+                                mcs.removeAlbum(name, title);
+                            }
+                                break;
+                            case 3:
+                                System.out.println("Returning to main menu...");
+                                break;
+                            default:
+                                System.out.println("Invalid option.");
+                        }
+                    } while (opt != 3);
+                }   
+                    break;
+                case 4:
+                    System.out.println("Exiting Program...");
+                    mcs.closeSystem();
                     break;
                 default:
-                    System.out.println("Invalid input.");
+                    System.out.println("Invalid option.");
             }
-            
-        } while (main_opt != 3);
+        } while (main_opt != 4);
     }
     
-    private static class MusicCatalogueSystem {
+    private static class MusicCatalogueSystem implements Catalogueable {
+        Catalogue myCatalogue;
         Scanner reader;
         
-        // These lists are for the catalogue
-        Queue<Album> albumCatalogue;
-        Queue<Artist> artistCatalogue;
-
-        // These lists are for the user library
-        Queue<Album> myAlbums;
-        Queue<Artist> myArtists;
-        String username;
-
+        // CONSTRUCTORS
+        
         MusicCatalogueSystem(Scanner reader) {
             this.reader = reader;
-            // Initializes the list for the catalogue
-            albumCatalogue = new PriorityQueue<>();
-            artistCatalogue = new PriorityQueue<>();
-            
-            // Initializes the lists for the user library
-            myAlbums = new PriorityQueue<>();
-            myArtists = new PriorityQueue<>();
-            
-            mcsSetup();
+            myCatalogue = new Catalogue();
+            setupSystem();
         }
         
-        public final void mcsSetup () {
-            // read catalogue txt file
-            // read library txt file
-        }
-        
-        // CATALOGUE FUNCTIONS
-        
-        public void catalogueLoop() {
-            int opt;
-            
-            do {
-                System.out.println("[1] - View Catalogue");
-                System.out.println("[2] - Add to Catalogue");
-                System.out.println("[3] - Remove from Catalogue");
-                System.out.println("[4] - Back");
-                System.out.print("\nEnter Option: ");
-                opt = Integer.parseInt(reader.nextLine());
-                
-                switch (opt) {
-                    case 1:
-                        viewLoop_C();
-                        break;
-                    case 2:
-                        // Add
-                        addLoop_C();
-                        break;
-                    case 3:
-                        // Remove
-                        removeLoop_C();
-                        break;
-                    case 4:
-                        // Back
-                        break;
-                    default:
-                        throw new AssertionError();
-                }
-            } while (opt != 4);
-        }
-        
-        public void viewLoop_C() {
-            int opt;
-            
-            do {
-                System.out.println("[1] - View artist catalogue");
-                System.out.println("[2] - View album catalogue");
-                System.out.println("[3] - Back");
-                System.out.print("\nEnter Option: ");
-                opt = Integer.parseInt(reader.nextLine());
-                
-                switch (opt) {
-                    case 1:
-                        viewArtist_C();
-                        break;
-                    case 2:
-                        viewAlbum_C();
-                        break;
-                    case 3:
-                        // Back
-                        break;
-                    default:
-                        throw new AssertionError();
-                }
-            } while (opt != 3);
-        }
-        
-        public void viewArtist_C () {
-            System.out.println("In viewArtist_C()");
-        }
-        
-        public void viewAlbum_C () {
-            System.out.println("In viewAlbum_C()");
-        }
-        
-        public void addLoop_C() {
-            int opt;
-            
-            do {
-                System.out.println("[1] - Add new artist to catalogue");
-                System.out.println("[2] - Add new album to catalogue");
-                System.out.println("[3] - Back");
-                System.out.print("\nEnter Option: ");
-                opt = Integer.parseInt(reader.nextLine());
-                
-                switch (opt) {
-                    case 1:
-                        addArtist_C();
-                        break;
-                    case 2:
-                        addAlbum_C();
-                        break;
-                    case 3:
-                        // Back
-                        break;
-                    default:
-                        throw new AssertionError();
-                }
-            } while (opt != 3);
-        }
-        
-        public void addArtist_C () {
-            System.out.println("In addArtist_C()");
+        // IMPLEMENTED METHODS
+
+        @Override
+        public boolean isArtistHere(String name) {
+            return myCatalogue.isArtistHere(name);
         }
 
-        public void addAlbum_C () {
-            System.out.println("In addAlbum_C()");
+        @Override
+        public void addArtist(String name) {
+            myCatalogue.addArtist(name);
+        }
+
+        @Override
+        public void removeArtist(String name) {
+            myCatalogue.removeArtist(name);
+        }
+
+        @Override
+        public void displayArtists() {
+            myCatalogue.displayArtists();
+        }
+
+        @Override
+        public boolean isAlbumHere(String artist, String title) {
+            return myCatalogue.isAlbumHere(artist, title);
+        }
+
+        @Override
+        public void addAlbum(String name, String title, int year) {
+            myCatalogue.addAlbum(name, title, year);
+        }
+
+        @Override
+        public void removeAlbum(String name, String title) {
+            myCatalogue.removeAlbum(name, title);
+        }
+
+        @Override
+        public void displayAlbums() {
+            myCatalogue.displayAlbums();
         }
         
-        public void removeLoop_C() {
-            int opt;
+        // CUSTOM METHODS
+        
+        public void setupSystem() {
+            // Read the contents of a .txt file and place it into the Artist catalogue
+            readArtistFile("Artist Catalogue");
+            // Read the contents of the .txt files of the respective artists and store them into their discography
             
-            do {
-                System.out.println("[1] - Remove an artist (and all associated albums)");
-                System.out.println("[2] - Remove an album");
-                System.out.println("[3] - Back");
-                System.out.print("\nEnter Option: ");
-                opt = Integer.parseInt(reader.nextLine());
-                
-                switch (opt) {
-                    case 1:
-                        removeArtist_C();
-                        break;
-                    case 2:
-                        removeAlbum_C();
-                        break;
-                    case 3:
-                        // Back
-                        break;
-                    default:
-                        throw new AssertionError();
-                }
-            } while (opt != 3);
+            // Adds all the artists to a temporary queue
+            Queue<Artist> alltists = new ArrayDeque<>();
+            for(Artist a : myCatalogue.catalogue) {
+                alltists.add(a);
+            }
+            // Writes all the albums in a discography of an artist on a .txt file with filename the same as the name of the artist.
+            for(Artist a : alltists) {
+                readAlbumFile(a, a.getName());
+            }
         }
         
-        public void removeArtist_C () {
-            System.out.println("In removeArtist_C()");
-        }
-        
-        public void removeAlbum_C () {
-            System.out.println("In removeAlbum_C()");
-        }
-        
-        // LIBRARY FUCNTIONS
-       
-        public void libraryLoop() {
-            int opt;
+        public void closeSystem() {
+            // Write contents of Artist catalogue to a .txt file
+            writeArtistFile("Artist Catalogue");
             
-            do {    
-                System.out.println("[1] - Artists");
-                System.out.println("[2] - Albums");
-                System.out.println("[3] - Back");
-                System.out.print("\nEnter Option: ");
-                opt = Integer.parseInt(reader.nextLine());
-                switch (opt) {
-                    case 1:
-                        // Artist
-                        artistLoop_L();
-                        break;
-                    case 2:
-                        // Album
-                        albumLoop_L();
-                        break;
-                    case 3:
-                        // Back
-                        break;
-                    default:
-                        throw new AssertionError();
-                }
-            } while (opt != 3);
-        }
-        
-        public void artistLoop_L() {
-            int opt;
+            // Write to a separate .txt file per artist the contents of their discography
             
-            do {
-                System.out.println("[1] - View My Artist List");
-                System.out.println("[2] - Add Artist to My List");
-                System.out.println("[3] - Remove Artist from My List");
-                System.out.println("[4] - Back");
-                System.out.print("\nEnter Option: ");
-                opt = Integer.parseInt(reader.nextLine());
-                
-                switch (opt) {
-                    case 1:
-                        viewArtist_L();
-                        break;
-                    case 2:
-                        addArtist_L();
-                        break;
-                    case 3:
-                        removeArtist_L();
-                        break;
-                    case 4:
-                        // Back
-                        break;
-                    default:
-                        throw new AssertionError();
+            // Adds all the artists to a temporary queue
+            Queue<Artist> alltists = new ArrayDeque<>();
+            for(Artist a : myCatalogue.catalogue) {
+                alltists.add(a);
+            }
+            // Writes all the albums in a discography of an artist on a .txt file with filename the same as the name of the artist.
+            for(Artist a : alltists) {
+                writeAlbumFile(a, a.getName());
+            }
+        }
+        
+        public void readArtistFile(String filename) {
+            filename += ".txt";
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(filename));
+                String line;
+                while((line = br.readLine()) != null) {
+                    myCatalogue.catalogue.add(new Artist(line));
                 }
-            } while (opt != 4);
+                br.close();
+            } catch (IOException ioe) {
+                System.out.println("Error, buddy.");
+            }
         }
         
-        public void viewArtist_L () {
-            System.out.println("In viewArtist_L()");
-        }
-        
-        public void addArtist_L () {
-            System.out.println("In addArtist_L()");
-        }
-        
-        public void removeArtist_L () {
-            System.out.println("In removeArtist_L()");
-        }
-        
-        public void albumLoop_L() {
-            int opt;
-            
-            do {
-                System.out.println("[1] - View My Artist List");
-                System.out.println("[2] - Add Artist to My List");
-                System.out.println("[3] - Remove Artist from My List");
-                System.out.println("[4] - Back");
-                System.out.print("\nEnter Option: ");
-                opt = Integer.parseInt(reader.nextLine());
-                
-                switch (opt) {
-                    case 1:
-                        viewAlbum_L();
-                        break;
-                    case 2:
-                        addAlbum_L();
-                        break;
-                    case 3:
-                        removeAlbum_L();
-                        break;
-                    case 4:
-                        // Back
-                        break;
-                    default:
-                        throw new AssertionError();
+        public void writeArtistFile(String filename) {
+            filename += ".txt";
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+                for(Artist a : myCatalogue.catalogue) {
+                    bw.write(a.getName() + "\n");
                 }
-            } while (opt != 4);
+                bw.close();
+            } catch (IOException ioe) {
+                System.out.println("Error, buddy.");
+            }
         }
         
-        public void viewAlbum_L () {
-            System.out.println("In viewAlbum_L()");
+        public void readAlbumFile(Artist artist, String filename) {
+            filename += ".txt";
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(filename));
+                String line;
+                while((line = br.readLine()) != null) {
+//                    myCatalogue.catalogue.add(new Artist(line));
+                    String title = line;
+                    int year = Integer.parseInt(br.readLine());
+                    artist.addAlbum(new Album(title, year));
+                    
+                }
+                br.close();
+                /*
+                for(Album a : artist.getDiscography()) {
+                    bw.write(a.getTitle() + "\n");
+                    bw.write(a.getYear() + "\n");
+                }
+                bw.close();
+                */
+            } catch (IOException ioe) {
+                System.out.println("Error, buddy.");
+            }
         }
         
-        public void addAlbum_L () {
-            System.out.println("In addAlbum_L()");
-        }
-        
-        public void removeAlbum_L () {
-            System.out.println("In removeAlbum_L()");
+        public void writeAlbumFile(Artist artist, String filename) {
+            // Early return if artist is not on the catalogue
+            if(!isArtistHere(artist.getName())) {
+                return;
+            }
+            filename += ".txt";
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+                for(Album a : artist.getDiscography()) {
+                    bw.write(a.getTitle() + "\n");
+                    bw.write(a.getYear() + "\n");
+                }
+                bw.close();
+            } catch (IOException ioe) {
+                System.out.println("Error, buddy.");
+            }
         }
     }
 }
-
-

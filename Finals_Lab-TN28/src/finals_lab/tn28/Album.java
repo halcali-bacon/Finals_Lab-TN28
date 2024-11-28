@@ -2,53 +2,76 @@ package finals_lab.tn28;
 
 import java.util.*;
 
-public class Album implements Catalogueable {
-    private String albumTitle;
+public class Album {
+    private String title;
     private int year;
-    private final Queue<String> tracklist;
+    private ArrayDeque<String> tracklist;
     
-    Album (String albumTitle, int year) {
-        this.albumTitle = albumTitle;
+    // CONSTRUCTORS
+    
+    // This constructor is for Albums that are copied from previous sessions
+    Album(String title, int year, ArrayDeque<String> tracklist) {
+        this.title = title;
         this.year = year;
-        
+        this.tracklist = tracklist;
+    }
+    
+    // This constructor is for Albums that are added during runtime
+    Album(String title, int year) {
+        this.title = title;
+        this.year = year;
         tracklist = new ArrayDeque<>();
     }
-
-    // GETTERS AND SETTERS
     
-    public String getAlbumTitle() {
-        return albumTitle;
+    // SETTERS AND GETTERS
+    
+    public void setTitle(String title) {
+        this.title = title;
     }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setAlbumTitle(String albumTitle) {
-        this.albumTitle = albumTitle;
-    }
-
+    
     public void setYear(int year) {
         this.year = year;
     }
     
+    public void setTracklist(Queue<String> tracklist) {
+        this.tracklist = new ArrayDeque<>(tracklist);
+    }
+    
+    public String getTitle() {
+        return this.title;
+    }
+    
+    public int getYear() {
+        return this.year;
+    }
+    
+    public Queue<String> getTracklist() {
+        return this.tracklist;
+    }
+    
     // CUSTOM METHODS
     
-    @Override
-    public void displayList() {
-        Queue<String> temp = this.tracklist;
-        while (temp.peek() != null) {
-            System.out.println(temp.poll() + "\n");
+    // This prints the whole tracklist into the *console
+    public void displayTracklist() {
+        for (String t : this.tracklist) {
+            System.out.println(t); // may be modified to print t into a .txt file
         }
     }
     
-    @Override
-    public void addToLibrary() {
-        
+    // This adds a track into the tracklist
+    public void addTrack(String track) {
+        this.tracklist.add(track);
     }
     
-    @Override
-    public void removeFromLibrary() {
-        
+    // This remove a track from the tracklist if it finds a match.
+    // Using iterators over for each is important here so that we can remove from the list.
+    public void removeTrack(String track) {
+        Iterator<String> itr = this.tracklist.iterator();
+        while(itr.hasNext()) {
+            String t = itr.next();
+            if(t.equals(track)) {
+                itr.remove();
+            }
+        }
     }
 }
