@@ -8,33 +8,131 @@ public class Finals_LabTN28 {
         Scanner reader = new Scanner(System.in);    
         MusicCatalogueSystem mcs = new MusicCatalogueSystem(reader);
         
-//        mcs.addArtist("Neutral Milk Hotel");
-//        mcs.addArtist("ASIAN KUNG-FU GENERATION");
-//        mcs.addArtist("Weezer");
-//        
-//        mcs.displayArtists();
-//        
-//        mcs.addAlbum("Car Seat Headrest", "Twin Fantasy", 2018);
-//        mcs.addAlbum("Fiona Apple", "Tidal", 1996);
-//        mcs.addAlbum("Fiona Apple", "When The Pawn...", 1999);
-//        mcs.addAlbum("Fiona Apple", "Fetch The Bolt Cutters", 2020);
+        int main_opt;
         
-        mcs.displayArtists();
-        System.out.println("");
-        mcs.displayAlbums();
-        
-        mcs.closeSystem();
-        
-//        try {
-//            BufferedReader br = new BufferedReader(new FileReader("Artists.txt"));
-//            String line;
-//            while((line = br.readLine()) != null) {
-//                System.out.println(line);
-//            }
-//            br.close();
-//        } catch (IOException ioe) {
-//            System.out.println("Error, buddy.");
-//        }
+        do {
+            System.out.println("---------MENU------------------");
+            System.out.println("[1] View Catalogue");
+            System.out.println("[2] Add to Catalogue");
+            System.out.println("[3] Remove from Catalogue");
+            System.out.println("[4] Exit System");
+            System.out.println("\nEnter option: ");
+            main_opt = Integer.parseInt(reader.nextLine());
+            
+            switch (main_opt) {
+                case 1:
+                {
+                    int opt;
+                    do {
+                        System.out.println("---------VIEW------------------");
+                        System.out.println("[1] View Artists");
+                        System.out.println("[2] View Albums");
+                        System.out.println("[3] Back");
+                        System.out.println("\nEnter option: ");
+                        opt =Integer.parseInt(reader.nextLine());
+                        
+                        switch (opt) {
+                            case 1:
+                                System.out.println("Artists in Catalogue:");
+                                mcs.displayArtists();
+                                break;
+                            case 2:
+                                System.out.println("Albums in Catalogue:");
+                                mcs.displayAlbums();
+                                break;
+                            case 3:
+                                System.out.println("Returning to main menu...");
+                                break;
+                            default:
+                                System.out.println("Invalid option.");
+                        }
+                    } while (opt != 3);
+                }
+                    break;
+                case 2:
+                {
+                    int opt;
+                    do {
+                        System.out.println("---------ADD-------------------");
+                        System.out.println("[1] Add Artist");
+                        System.out.println("[2] Add Album");
+                        System.out.println("[3] Back");
+                        System.out.println("\nEnter option: ");
+                        opt =Integer.parseInt(reader.nextLine());
+                        
+                        switch (opt) {
+                            case 1:
+                            {
+                                System.out.print("Enter artist name: ");
+                                String name = reader.nextLine();
+                                mcs.addArtist(name);
+                            }
+                                break;
+                            case 2:
+                            {
+                                System.out.print("Enter artist name: ");
+                                String name = reader.nextLine();
+                                System.out.print("Enter album title: ");
+                                String title = reader.nextLine();
+                                System.out.print("Enter album year: ");
+                                int year = Integer.parseInt(reader.nextLine());
+                                mcs.addAlbum(name, title, year);
+                            }
+                                break;
+                            case 3:
+                                System.out.println("Returning to main menu...");
+                                break;
+                            default:
+                                System.out.println("Invalid option.");
+                        }
+                    } while (opt != 3);
+                }
+                    break;
+                case 3:
+                {
+                    int opt;
+                    do {
+                        System.out.println("---------REMOVE----------------");
+                        System.out.println("[1] Remove Artist");
+                        System.out.println("[2] Remove Album");
+                        System.out.println("[3] Back");
+                        System.out.println("\nEnter option: ");
+                        opt =Integer.parseInt(reader.nextLine());
+                        
+                        switch (opt) {
+                            case 1:
+                            {
+                                System.out.print("Enter artist name: ");
+                                String name = reader.nextLine();
+                                mcs.removeArtist(name);
+                            }
+                                break;
+                            case 2:
+                            {
+                                System.out.println("Enter artist name: ");
+                                String name = reader.nextLine();
+                                System.out.println("Enter album title: ");
+                                String title = reader.nextLine();
+                                mcs.removeAlbum(name, title);
+                            }
+                                break;
+                            case 3:
+                                System.out.println("Returning to main menu...");
+                                break;
+                            default:
+                                System.out.println("Invalid option.");
+                        }
+                    } while (opt != 3);
+                }   
+                    break;
+                case 4:
+                    System.out.println("Exiting Program...");
+                    mcs.closeSystem();
+                    break;
+                default:
+                    System.out.println("Invalid option.");
+            }
+        } while (main_opt != 4);
     }
     
     private static class MusicCatalogueSystem implements Catalogueable {

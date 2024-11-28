@@ -50,15 +50,22 @@ public class Catalogue implements Catalogueable {
             return;
         }
         this.catalogue.add(new Artist(name));
+        System.out.println("Artist successfully added.");
     }
     
     @Override
     public void removeArtist(String name) {
+        if(!isArtistHere(name)) {
+            System.out.println("Artist is not in the catalogue.");
+            return;
+        }
         Iterator<Artist> itr = this.catalogue.iterator();
         while(itr.hasNext()) {
             Artist a = itr.next();
             if(a.getName().equals(name)) {
                 itr.remove();
+                System.out.println("Artist successfully removed.");
+                break;
             }
         }
     }
