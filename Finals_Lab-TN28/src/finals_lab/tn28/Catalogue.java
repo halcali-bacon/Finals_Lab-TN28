@@ -94,22 +94,74 @@ public class Catalogue {
             return;
         }
         // Retrieve a reference of the artist from the catalogue
-        
+        Artist found = null;
+        Iterator<Artist> itr = this.catalogue.iterator();
+        while(itr.hasNext()) {
+            Artist a = itr.next();
+            if(a.getName().equals(artist)) {
+                found = a;
+                break;
+            }
+        }
         // Early exit if album is already on catalogue
-        if(!isAlbumHere(a, album)) {
+        if(isAlbumHere(found, album)) {
             System.out.println("Album is already on the discography.");
             return;
         }
         // Add Album
-        a.addAlbum(new Album(album, year));
+        found.addAlbum(new Album(album, year));
+        
     }
     
     public void removeAlbum(String artist, String album) {
-        
+        // early exit if artist is not on the catalogue
+        if(!isArtistHere(artist)) {
+            System.out.println("Artist is not on catalogue.");
+            return;
+        }
+        // Retrieve a reference of the artist from the catalogue
+        Artist found = null;
+        Iterator<Artist> itr = this.catalogue.iterator();
+        while(itr.hasNext()) {
+            Artist a = itr.next();
+            if(a.getName().equals(artist)) {
+                found = a;
+                break;
+            }
+        }
+        // Early exit if album is already on catalogue
+        if(!isAlbumHere(found, album)) {
+            System.out.println("Album is not on the discography.");
+            return;
+        }
+        found.removeAlbum(album);
     }
     
+   /*
+    *   May mas maayos na method for sure, pero mababaliw na ko...
+    */
     public void displayAlbums() {
+        // Adds all the artists to a temporary queue
+        Queue<Artist> alltists = new ArrayDeque<>();
+        for(Artist a : this.catalogue) {
+            alltists.add(a);
+        }
         
+        // Adds all the albums of all those artists to a temporary queue
+        Queue<Album> allbums = new ArrayDeque<>();
+        for(Artist a : alltists) {
+            for(Album b : a.getDiscography()) {
+                allbums.add(b);
+            }
+        }
+        // Adds album title and year to a temporary TreeSet<String> to display it in alphabetical order
+        TreeSet<String> temp = new TreeSet<>();
+        for(Album a : allbums) {
+            temp.add(a.getTitle() + " (" + a.getYear() + ")");
+        }
+        for(String a : temp) {
+            System.out.println(a);
+        }
     }
     
     
