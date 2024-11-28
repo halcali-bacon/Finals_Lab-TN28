@@ -2,7 +2,7 @@ package finals_lab.tn28;
 
 import java.util.*;
 
-public class Catalogue {
+public class Catalogue implements Catalogueable {
     ArrayDeque<Artist> catalogue;
     
     // CONSTRUCTORS
@@ -42,10 +42,17 @@ public class Catalogue {
         return false;
     }
     
-    public void addArtist(Artist artist) {
-        this.catalogue.add(artist);
+    @Override
+    public void addArtist(String name) {
+        // Early exit if artist is in catalogue
+        if(isArtistHere(name)) {
+            System.out.println("Artist is already on catalogue.");
+            return;
+        }
+        this.catalogue.add(new Artist(name));
     }
     
+    @Override
     public void removeArtist(String name) {
         Iterator<Artist> itr = this.catalogue.iterator();
         while(itr.hasNext()) {
@@ -62,6 +69,7 @@ public class Catalogue {
     *
     * (Note: Probably may better solution... Nitry ko gawing tree set yung catalogue kaso nagcoconflict siya sa ibang code)
     */
+    @Override
     public void displayArtists() {
         TreeSet<String> temp = new TreeSet<>();
         for(Artist a : this.catalogue) {
@@ -73,9 +81,26 @@ public class Catalogue {
         temp.clear();
     }
     
-    public boolean isAlbumHere(Artist artist, String album) {
+    @Override
+    public boolean isAlbumHere(String artist, String album) {
+        // Early exit if artist is not on the catalogue
+        if(!isArtistHere(artist)) {
+            System.out.println("Artist is not even on the catalogue.");
+            return false;
+        }
+        // Retrieve a reference of the artist from the catalogue
+        Artist found = null;
+        for (Artist a : this.catalogue) {
+            if(a.getName().equals(artist)) {
+                found = a;
+                break;
+            }
+        }
+        if (found == null) {
+            return false;
+        }
         TreeSet<String> temp = new TreeSet<>();
-        for(Album a : artist.getDiscography()) {
+        for(Album a : found.getDiscography()) {
             temp.add(a.getTitle());
         }
         for(String a : temp) {
@@ -87,6 +112,7 @@ public class Catalogue {
         return false;
     }
     
+    @Override
     public void addAlbum(String artist, String album, int year) {
         // early exit if artist is not on the catalogue
         if(!isArtistHere(artist)) {
@@ -103,8 +129,12 @@ public class Catalogue {
                 break;
             }
         }
+        // IDK PATCHWORK CODE
+        if (found == null) {
+            return;
+        }
         // Early exit if album is already on catalogue
-        if(isAlbumHere(found, album)) {
+        if(isAlbumHere(found.getName(), album)) {
             System.out.println("Album is already on the discography.");
             return;
         }
@@ -113,6 +143,7 @@ public class Catalogue {
         
     }
     
+    @Override
     public void removeAlbum(String artist, String album) {
         // early exit if artist is not on the catalogue
         if(!isArtistHere(artist)) {
@@ -129,8 +160,12 @@ public class Catalogue {
                 break;
             }
         }
+        // IDK PATCHWORK CODE
+        if (found == null) {
+            return;
+        }
         // Early exit if album is already on catalogue
-        if(!isAlbumHere(found, album)) {
+        if(!isAlbumHere(found.getName(), album)) {
             System.out.println("Album is not on the discography.");
             return;
         }
@@ -140,13 +175,13 @@ public class Catalogue {
    /*
     *   May mas maayos na method for sure, pero mababaliw na ko...
     */
+    @Override
     public void displayAlbums() {
         // Adds all the artists to a temporary queue
         Queue<Artist> alltists = new ArrayDeque<>();
         for(Artist a : this.catalogue) {
             alltists.add(a);
         }
-        
         // Adds all the albums of all those artists to a temporary queue
         Queue<Album> allbums = new ArrayDeque<>();
         for(Artist a : alltists) {

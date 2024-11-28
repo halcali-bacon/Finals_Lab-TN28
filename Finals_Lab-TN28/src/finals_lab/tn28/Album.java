@@ -5,12 +5,12 @@ import java.util.*;
 public class Album {
     private String title;
     private int year;
-    private Queue<String> tracklist;
+    private ArrayDeque<String> tracklist;
     
     // CONSTRUCTORS
     
     // This constructor is for Albums that are copied from previous sessions
-    Album(String title, int year, Queue<String> tracklist) {
+    Album(String title, int year, ArrayDeque<String> tracklist) {
         this.title = title;
         this.year = year;
         this.tracklist = tracklist;

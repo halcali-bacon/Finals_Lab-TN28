@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Artist {
     private String name;
-    private Queue<Album> discography;
+    private ArrayDeque<Album> discography;
     
     // CONSTRUCTOR
     

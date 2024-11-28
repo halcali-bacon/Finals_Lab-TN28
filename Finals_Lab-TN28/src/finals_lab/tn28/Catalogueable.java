@@ -1,16 +1,17 @@
 package finals_lab.tn28;
 
 public interface Catalogueable {
-    void isArtistOnList();
     
     //For Artists
-    void addArtist();
-    void removeArtist();
+    boolean isArtistHere(String name);
+    void addArtist(String name);
+    void removeArtist(String name);
     void displayArtists();
     
     // For Albums
-    void addAlbum();
-    void removeAlbum();
+    boolean isAlbumHere(String artist, String title);
+    void addAlbum(String name, String title, int year);
+    void removeAlbum(String name, String title);
     void displayAlbums();
     
     
